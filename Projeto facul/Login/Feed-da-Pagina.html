@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LinkGraph</title>
+   <link rel="icon" href="./Nova Logo.png" sizes= type="image/png">
+
+  <!-- ICONES -->
+  <link rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+
+  <style>
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:Arial, Helvetica, sans-serif;
+    }
+
+    body{
+      background:#fafafa;
+    }
+
+    /* ===== TOPO ===== */
+
+    header{
+      width:100%;
+      height:70px;
+      background:white;
+      border-bottom:1px solid #ddd;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:0 40px;
+      position:fixed;
+      top:0;
+      left:0; 
+      z-index:1000;
+    }
+
+    /* LOGO */
+
+    .logo-area{
+      display:flex;
+      align-items:center;
+      gap:10px;
+    }
+
+    .logo-icon{
+      width:42px;
+      height:42px;
+      border-radius:12px;
+      background:linear-gradient(135deg,#1877f2,#4f46e5);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color:white;
+      font-size:20px;
+    }
+
+    .logo{
+      font-size:28px;
+      font-weight:bold;
+      color:#111;
+    }
+
+    .logo span{
+      color:#1877f2;
+    }
+
+    /* PESQUISA */
+
+    .search-box{
+      width:420px;
+      height:45px;
+      background:#f0f2f5;
+      border-radius:30px;
+      display:flex;
+      align-items:center;
+      padding:0 18px;
+      gap:12px;
+    }
+
+    .search-box i{
+      color:gray;
+    }
+
+    .search-box input{
+      width:100%;
+      border:none;
+      background:none;
+      outline:none;
+      font-size:15px;
+    }
+
+    /* ICONES MENU */
+
+    .menu-icons{
+      display:flex;
+      align-items:center;
+      gap:25px;
+    }
+
+    .icon{
+      width:42px;
+      height:42px;
+      border-radius:50%;
+      background:#f0f2f5;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      cursor:pointer;
+      transition:0.3s;
+      font-size:18px;
+      color:#222;
+    }
+
+    .icon:hover{
+      background:#e4e6eb;
+      transform:scale(1.05);
+    }
+
+    /* ===== CONTAINER ===== */
+
+    .container{
+      width:100%;
+      display:flex;
+      justify-content:center;
+      margin-top:100px;
+      padding:20px;
+    }
+
+    /* ===== FEED ===== */
+
+    .feed{
+      width:500px;
+      display:flex;
+      flex-direction:column;
+      gap:25px;
+    }
+
+    /* ===== CRIAR POST ===== */
+
+    .create-post{
+      background:white;
+      border:1px solid #ddd;
+      border-radius:20px;
+      padding:20px;
+    }
+
+    .create-top{
+      display:flex;
+      align-items:center;
+      gap:15px;
+      margin-bottom:15px;
+    }
+
+    .create-top img{
+      width:50px;
+      height:50px;
+      border-radius:50%;
+      object-fit:cover;
+    }
+
+    .create-top input{
+      width:100%;
+      height:45px;
+      border:none;
+      background:#f0f2f5;
+      border-radius:30px;
+      padding:0 20px;
+      outline:none;
+    }
+
+    .create-actions{
+      display:flex;
+      justify-content:space-around;
+      border-top:1px solid #eee;
+      padding-top:15px;
+    }
+
+    .create-actions button{
+      border:none;
+      background:none;
+      cursor:pointer;
+      font-size:15px;
+      padding:10px;
+      border-radius:10px;
+      transition:0.3s;
+    }
+
+    .create-actions button:hover{
+      background:#f0f2f5;
+    }
+
+    /* ===== POSTS ===== */
+
+    .post{
+      background:white;
+      border:1px solid #ddd;
+      border-radius:20px;
+      overflow:hidden;
+    }
+
+    /* TOPO POST */
+
+    .post-header{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:15px;
+    }
+
+    .post-user{
+      display:flex;
+      align-items:center;
+      gap:12px;
+    }
+
+    .post-user img{
+      width:50px;
+      height:50px;
+      border-radius:50%;
+      object-fit:cover;
+    }
+
+    .post-info h3{
+      font-size:15px;
+    }
+
+    .post-info p{
+      font-size:13px;
+      color:gray;
+    }
+
+    .post-header i{
+      cursor:pointer;
+      color:#555;
+    }
+
+    /* IMAGEM POST */
+
+    .post-image{
+      width:100%;
+      height:550px;
+      object-fit:cover;
+    }
+
+    /* AÇÕES */
+
+    .post-actions{
+      display:flex;
+      justify-content:space-between;
+      padding:15px;
+      font-size:22px;
+    }
+
+    .left-actions{
+      display:flex;
+      gap:18px;
+    }
+
+    .post-actions i{
+      cursor:pointer;
+      transition:0.2s;
+    }
+
+    .post-actions i:hover{
+      transform:scale(1.1);
+    }
+
+    /* TEXTO */
+
+    .post-content{
+      padding:0 15px 18px;
+    }
+
+    .likes{
+      font-weight:bold;
+      margin-bottom:10px;
+    }
+
+    .caption{
+      margin-bottom:10px;
+      line-height:1.5;
+    }
+
+    .caption span{
+      font-weight:bold;
+    }
+
+    .comments{
+      color:gray;
+      margin-bottom:10px;
+      cursor:pointer;
+    }
+
+    .time{
+      color:gray;
+      font-size:12px;
+    }
+
+    /* RESPONSIVO */
+
+    @media(max-width:700px){
+
+      header{
+        padding:0 15px;
+      }
+
+      .search-box{
+        width:180px;
+      }
+
+      .logo{
+        display:none;
+      }
+
+      .feed{
+        width:100%;
+      }
+
+      .post-image{
+        height:400px;
+      }
+
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- TOPO -->
+
+  <header>
+
+    <!-- LOGO -->
+
+    <div class="logo-area">
+
+
+      <div class="logo-icon">
+        <img src="./Logo.jpeg" alt="Logo" width="50">
+        
+      </div>
+
+      <div class="logo">
+      Link<span>Graph</span>
+      </div>
+
+    </div>
+
+    <!-- PESQUISA -->
+
+    <div class="search-box">
+
+      <i class="fa-solid fa-magnifying-glass"></i>
+
+      <input type="text" placeholder="Pesquisar mentores, áreas ou pessoas...">
+
+    </div>
+
+    <!-- MENU -->
+
+    <div class="menu-icons">
+
+      <div class="icon" title="Perfil">
+        <i class="fa-solid fa-user"></i>
+      </div>
+
+      <div class="icon" title="Amigos">
+        <i class="fa-solid fa-user-group"></i>
+      </div>
+
+      <div class="icon" title="Mensagens">
+        <i class="fa-solid fa-paper-plane"></i>
+      </div>
+
+      <div class="icon" title="Notificações">
+        <i class="fa-solid fa-bell"></i>
+      </div>
+
+    </div>
+
+  </header>
+
+  <!-- CONTAINER -->
+
+  <div class="container">
+
+    <!-- FEED -->
+
+    <main class="feed">
+
+      <!-- CRIAR POST -->
+
+      <div class="create-post">
+
+        <div class="create-top">
+
+          <img src="./Usuario logado.jpg" alt="Usuário logado">
+
+          <input type="text"
+          placeholder="Compartilhe algo sobre sua carreira...">
+
+        </div>
+
+        <div class="create-actions">
+
+          <button>📷 Foto</button>
+          <button>🎥 Mentoria</button>
+          <button>💼 Trabalho</button>
+
+        </div>
+
+      </div>
+
+      <!-- POST 1 -->
+
+      <div class="post">
+
+        <div class="post-header">
+
+          <div class="post-user">
+
+            <img src="./Ricardo Neto.jpg">
+
+            <div class="post-info">
+              <h3>Ricardo Neto</h3>
+              <p>Mentor Front-End • 2h</p>
+            </div>
+
+          </div>
+
+          <i class="fa-solid fa-ellipsis"></i>
+
+        </div>
+
+        <img class="post-image"
+        src="./html.jpeg">
+
+        <div class="post-actions">
+
+          <div class="left-actions">
+            <i class="fa-regular fa-heart"></i>
+            <i class="fa-regular fa-comment"></i>
+            <i class="fa-regular fa-paper-plane"></i>
+          </div>
+
+          <i class="fa-regular fa-bookmark"></i>
+
+        </div>
+
+        <div class="post-content">
+
+          <div class="likes">
+            1.245 curtidas
+          </div>
+
+          <div class="caption">
+            <span>ricardoneto</span>
+            Hoje teremos uma mentoria gratuita sobre HTML e CSS para iniciantes 🚀
+          </div>
+
+          <div class="comments">
+            Ver todos os 120 comentários
+          </div>
+
+          <div class="time">
+            HÁ 2 HORAS
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- POST 2 -->
+
+      <div class="post">
+
+        <div class="post-header">
+
+          <div class="post-user">
+
+            <img src="./João Gabriel.jpg">
+
+            <div class="post-info">
+              <h3>João Gabriel</h3>
+              <p>Especialista em Dados • 5h</p>
+            </div>
+
+          </div>
+
+          <i class="fa-solid fa-ellipsis"></i>
+
+        </div>
+
+        <img class="post-image"
+        src="./Python.jpeg">
+
+        <div class="post-actions">
+
+          <div class="left-actions">
+            <i class="fa-regular fa-heart"></i>
+            <i class="fa-regular fa-comment"></i>
+            <i class="fa-regular fa-paper-plane"></i>
+          </div>
+
+          <i class="fa-regular fa-bookmark"></i>
+
+        </div>
+
+        <div class="post-content">
+
+          <div class="likes">
+            892 curtidas
+          </div>
+
+          <div class="caption">
+            <span>joaogabriel</span>
+            Abrindo vagas para grupo de estudos de Python e IA 🤖
+          </div>
+
+          <div class="comments">
+            Ver todos os 48 comentários
+          </div>
+
+          <div class="time">
+            HÁ 5 HORAS
+          </div>
+
+        </div>
+
+      </div>
+
+    </main>
+
+  </div>
+
+</body>
+</html>
