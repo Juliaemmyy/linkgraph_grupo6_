@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Perfil - LinkGraph</title>
+
+<link rel="icon" href="fotos/Nova Logo.png" type="image/png">
+
+<!-- ICONES -->
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+body{
+    background:#f0f2f5;
+}
+
+/* ===== HEADER ===== */
+
+header{
+    width:100%;
+    height:70px;
+    background:white;
+    border-bottom:1px solid #ddd;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 40px;
+    position:fixed;
+    top:0;
+    left:0;
+    z-index:1000;
+}
+
+/* LOGO */
+
+.logo-area{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.logo-icon{
+    width:45px;
+    height:45px;
+    border-radius:12px;
+    overflow:hidden;
+}
+
+.logo-icon img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+.logo{
+    font-size:28px;
+    font-weight:bold;
+}
+
+.logo span{
+    color:#1877f2;
+}
+
+/* PESQUISA */
+
+.search-box{
+    width:420px;
+    height:45px;
+    background:#f0f2f5;
+    border-radius:30px;
+    display:flex;
+    align-items:center;
+    padding:0 18px;
+    gap:10px;
+}
+
+.search-box input{
+    width:100%;
+    border:none;
+    background:none;
+    outline:none;
+    font-size:15px;
+}
+
+/* MENU */
+
+.menu-icons{
+    display:flex;
+    gap:20px;
+}
+
+.icon{
+    width:42px;
+    height:42px;
+    border-radius:50%;
+    background:#f0f2f5;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+.icon:hover{
+    background:#ddd;
+    transform:scale(1.05);
+}
+
+/* ===== PERFIL ===== */
+
+.profile-container{
+    width:100%;
+    display:flex;
+    justify-content:center;
+    margin-top:90px;
+    padding-bottom:40px;
+}
+
+.profile-content{
+    width:900px;
+}
+
+/* CAPA */
+
+.cover{
+    width:100%;
+    height:320px;
+    background:url('fotos/capa.jpg') center/cover;
+    border-radius:20px;
+    position:relative;
+}
+
+/* FOTO PERFIL */
+
+.profile-info{
+    background:white;
+    padding:90px 30px 30px;
+    border-radius:0 0 20px 20px;
+    position:relative;
+    box-shadow:0 2px 8px rgba(0,0,0,0.08);
+}
+
+.profile-photo{
+    width:170px;
+    height:170px;
+    border-radius:50%;
+    border:6px solid white;
+    position:absolute;
+    top:-90px;
+    left:30px;
+    overflow:hidden;
+}
+
+.profile-photo img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+/* NOME */
+
+.profile-name{
+    margin-left:190px;
+}
+
+.profile-name h1{
+    font-size:32px;
+    color:#111;
+}
+
+.profile-name p{
+    color:gray;
+    margin-top:5px;
+    font-size:16px;
+}
+
+/* BOTÕES */
+
+.profile-buttons{
+    margin-top:25px;
+    display:flex;
+    gap:15px;
+}
+
+.profile-buttons button{
+    padding:12px 20px;
+    border:none;
+    border-radius:10px;
+    cursor:pointer;
+    font-weight:bold;
+    transition:0.3s;
+}
+
+.btn-primary{
+    background:#1877f2;
+    color:white;
+}
+
+.btn-primary:hover{
+    background:#1668d3;
+}
+
+.btn-secondary{
+    background:#e4e6eb;
+}
+
+.btn-secondary:hover{
+    background:#d8dadf;
+}
+
+/* ===== POSTS ===== */
+
+.posts{
+    margin-top:25px;
+    display:flex;
+    flex-direction:column;
+    gap:25px;
+}
+
+.post{
+    background:white;
+    border-radius:20px;
+    overflow:hidden;
+    box-shadow:0 2px 8px rgba(0,0,0,0.08);
+}
+
+/* HEADER POST */
+
+.post-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:18px;
+}
+
+.post-user{
+    display:flex;
+    align-items:center;
+    gap:15px;
+}
+
+.post-user img{
+    width:55px;
+    height:55px;
+    border-radius:50%;
+    object-fit:cover;
+}
+
+.post-info h3{
+    font-size:16px;
+}
+
+.post-info p{
+    font-size:13px;
+    color:gray;
+}
+
+.post-image{
+    width:100%;
+    height:500px;
+    object-fit:cover;
+}
+
+/* AÇÕES */
+
+.post-actions{
+    display:flex;
+    justify-content:space-between;
+    padding:18px;
+    font-size:22px;
+}
+
+.left-actions{
+    display:flex;
+    gap:20px;
+}
+
+.post-actions i{
+    cursor:pointer;
+    transition:0.2s;
+}
+
+.post-actions i:hover{
+    transform:scale(1.1);
+}
+
+/* TEXTO */
+
+.post-content{
+    padding:0 18px 20px;
+}
+
+.likes{
+    font-weight:bold;
+    margin-bottom:10px;
+}
+
+.caption{
+    line-height:1.5;
+    margin-bottom:10px;
+}
+
+.caption span{
+    font-weight:bold;
+}
+
+.comments{
+    color:gray;
+    margin-bottom:10px;
+    cursor:pointer;
+}
+
+.time{
+    color:gray;
+    font-size:12px;
+}
+
+/* RESPONSIVO */
+
+@media(max-width:950px){
+
+    .profile-content{
+        width:100%;
+    }
+
+    header{
+        padding:0 15px;
+    }
+
+    .search-box{
+        width:180px;
+    }
+
+    .logo{
+        display:none;
+    }
+
+    .cover{
+        border-radius:0;
+    }
+
+    .profile-info{
+        border-radius:0;
+    }
+
+    .post-image{
+        height:350px;
+    }
+
+    .profile-name{
+        margin-left:0;
+        margin-top:100px;
+    }
+
+    .profile-photo{
+        left:50%;
+        transform:translateX(-50%);
+    }
+
+}
+
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+
+<header>
+
+    <div class="logo-area">
+
+        <div class="logo-icon">
+            <img src="fotos/Logo.jpeg">
+        </div>
+
+        <div class="logo">
+            Link<span>Graph</span>
+        </div>
+
+    </div>
+
+    <!-- PESQUISA -->
+
+    <div class="search-box">
+
+        <i class="fa-solid fa-magnifying-glass"></i>
+
+        <input type="text"
+        placeholder="Pesquisar pessoas ou áreas...">
+
+    </div>
+
+    <!-- MENU -->
+
+    <div class="menu-icons">
+
+        <div class="icon" title="Perfil"  onclick="window.location.href='perfil.html '">
+          <i class="fa-solid fa-user"></i>
+        </div>
+  
+        <div class="icon" title="Amigos" onclick="window.location.href='dijkstra.html'">
+          <i class="fa-solid fa-user-group"></i>
+        </div>
+  
+        <div class="icon" title="Mensagens">
+          <i class="fa-solid fa-paper-plane"></i>
+        </div>
+  
+        <div class="icon" title="Notificações">
+          <i class="fa-solid fa-bell"></i>
+        </div>
+  
+      
+    </div>
+
+</header>
+
+<!-- PERFIL -->
+
+<div class="profile-container">
+
+    <div class="profile-content">
+
+        <!-- CAPA -->
+
+        <div class="cover"></div>
+
+        <!-- INFORMAÇÕES -->
+
+        <div class="profile-info">
+
+            <div class="profile-photo">
+                <img src="fotos/Usuario logado.jpg">
+            </div>
+
+            <div class="profile-name">
+
+                <h1>guilherme libório</h1>
+
+                <p>
+                    Desenvolvedor Full Stack • Mentor de Tecnologia • São Paulo
+                </p>
+
+                <div class="profile-buttons">
+
+                    <button class="btn-primary">
+                        Adicionar amigo
+                    </button>
+
+                    <button class="btn-secondary">
+                        Mensagem
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- POSTS -->
+
+        <div class="posts">
+
+            <!-- POST 1 -->
+
+            <div class="post">
+
+                <div class="post-header">
+
+                    <div class="post-user">
+
+                        <img src="fotos/Usuario logado.jpg">
+
+                        <div class="post-info">
+                            <h3>guilherme libório</h3>
+                            <p>Há 2 horas</p>
+                        </div>
+
+                    </div>
+
+                    <i class="fa-solid fa-ellipsis"></i>
+
+                </div>
+
+                <img class="post-image"
+                src="fotos/Python.jpeg">
+
+                <div class="post-actions">
+
+                    <div class="left-actions">
+
+                        <i class="fa-regular fa-heart"></i>
+
+                        <i class="fa-regular fa-comment"></i>
+
+                        <i class="fa-regular fa-paper-plane"></i>
+
+                    </div>
+
+                    <i class="fa-regular fa-bookmark"></i>
+
+                </div>
+
+                <div class="post-content">
+
+                    <div class="likes">
+                        2.340 curtidas
+                    </div>
+
+                    <div class="caption">
+
+                        <span>guilherme libório</span>
+
+                        Iniciando novos projetos com Python e Inteligência Artificial 🚀
+
+                    </div>
+
+                    <div class="comments">
+                        Ver todos os 180 comentários
+                    </div>
+
+                    <div class="time">
+                        HÁ 2 HORAS
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- POST 2 -->
+
+            <div class="post">
+
+                <div class="post-header">
+
+                    <div class="post-user">
+
+                        <img src="fotos/Usuario logado.jpg">
+
+                        <div class="post-info">
+                            <h3>guilherme libório</h3>
+                            <p>Há 1 dia</p>
+                        </div>
+
+                    </div>
+
+                    <i class="fa-solid fa-ellipsis"></i>
+
+                </div>
+
+                <img class="post-image"
+                src="fotos/html.jpeg">
+
+                <div class="post-actions">
+
+                    <div class="left-actions">
+
+                        <i class="fa-regular fa-heart"></i>
+
+                        <i class="fa-regular fa-comment"></i>
+
+                        <i class="fa-regular fa-paper-plane"></i>
+
+                    </div>
+
+                    <i class="fa-regular fa-bookmark"></i>
+
+                </div>
+
+                <div class="post-content">
+
+                    <div class="likes">
+                        980 curtidas
+                    </div>
+
+                    <div class="caption">
+
+                        <span>guilherme libório</span>
+
+                        Criando uma nova interface para a LinkGraph 💻
+
+                    </div>
+
+                    <div class="comments">
+                        Ver todos os 65 comentários
+                    </div>
+
+                    <div class="time">
+                        HÁ 1 DIA
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>LinkGraph Friends</title>
+
+<link rel="stylesheet" href="style.css">
+</head>
+<style>
+
+body{
+font-family:Arial;
+background:#f0f2f5;
+margin:0;
+}
+
+header{
+background:white;
+padding:15px;
+text-align:center;
+border-bottom:1px solid #ddd;
+}
+
+.container{
+display:grid;
+grid-template-columns:300px 1fr;
+gap:20px;
+padding:20px;
+}
+
+.panel{
+background:white;
+padding:20px;
+border-radius:10px;
+height:fit-content;
+}
+
+select,button{
+width:100%;
+margin-top:10px;
+padding:10px;
+}
+
+#friends{
+display:flex;
+flex-direction:column;
+gap:10px;
+}
+
+.card{
+background:white;
+padding:15px;
+border-radius:10px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+.online{
+color:green;
+}
+
+</style>
+<body>
+
+<header>
+<h1>LinkGraph</h1>
+</header>
+
+<div class="container">
+
+<!-- SIDEBAR -->
+<div class="panel">
+
+<h2>Rede Social Inteligente</h2>
+
+<select id="from"></select>
+<select id="to"></select>
+
+<button onclick="runDijkstra()">
+Encontrar conexão
+</button>
+
+<div id="result"></div>
+
+</div>
+
+<!-- AMIGOS -->
+<div id="friends"></div>
+
+</div>
+
+<script src="app.js"></script>
+
+</body>
+</html>

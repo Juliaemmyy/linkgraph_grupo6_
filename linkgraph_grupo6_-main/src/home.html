@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>LinkGraph</title>
+
+  <link rel="icon" href="fotos/Nova Logo.png" type="image/png">
+
+  <!-- FONT AWESOME -->
+  <link rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+
+  <style>
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:Arial, Helvetica, sans-serif;
+    }
+
+    body{
+      background:#f0f2f5;
+    }
+
+    /* ===== HEADER ===== */
+
+    header{
+      width:100%;
+      height:70px;
+      background:white;
+      border-bottom:1px solid #ddd;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:0 40px;
+      position:fixed;
+      top:0;
+      left:0;
+      z-index:1000;
+    }
+
+    /* LOGO */
+
+    .logo-area{
+      display:flex;
+      align-items:center;
+      gap:10px;
+    }
+
+    .logo-icon{
+      width:42px;
+      height:42px;
+      border-radius:12px;
+      overflow:hidden;
+    }
+
+    .logo-icon img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+    }
+
+    .logo{
+      font-size:28px;
+      font-weight:bold;
+      color:#111;
+    }
+
+    .logo span{
+      color:#1877f2;
+    }
+
+    /* PESQUISA */
+
+    .search-box{
+      width:420px;
+      height:45px;
+      background:#f0f2f5;
+      border-radius:30px;
+      display:flex;
+      align-items:center;
+      padding:0 18px;
+      gap:12px;
+    }
+
+    .search-box input{
+      width:100%;
+      border:none;
+      background:none;
+      outline:none;
+      font-size:15px;
+    }
+
+    /* MENU */
+
+    .menu-icons{
+      display:flex;
+      align-items:center;
+      gap:20px;
+    }
+
+    .icon{
+      width:42px;
+      height:42px;
+      border-radius:50%;
+      background:#f0f2f5;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      cursor:pointer;
+      transition:0.3s;
+    }
+
+    .icon:hover{
+      background:#ddd;
+      transform:scale(1.05);
+    }
+
+    /* ===== CONTAINER ===== */
+
+    .container{
+      width:100%;
+      display:flex;
+      justify-content:center;
+      padding:100px 20px 40px;
+    }
+
+    /* ===== FEED ===== */
+
+    .feed{
+      width:550px;
+      display:flex;
+      flex-direction:column;
+      gap:25px;
+    }
+
+    /* ===== CREATE POST ===== */
+
+    .create-post{
+      background:white;
+      border-radius:20px;
+      padding:20px;
+      box-shadow:0 2px 8px rgba(0,0,0,0.08);
+    }
+
+    .create-top{
+      display:flex;
+      align-items:center;
+      gap:15px;
+    }
+
+    .create-top img{
+      width:50px;
+      height:50px;
+      border-radius:50%;
+      object-fit:cover;
+    }
+
+    .create-top input{
+      width:100%;
+      height:45px;
+      border:none;
+      background:#f0f2f5;
+      border-radius:30px;
+      padding:0 20px;
+      outline:none;
+    }
+
+    #imageInput{
+      margin-top:15px;
+    }
+
+    /* ACTIONS */
+
+    .create-actions{
+      display:flex;
+      justify-content:space-around;
+      border-top:1px solid #eee;
+      margin-top:15px;
+      padding-top:15px;
+    }
+
+    .create-actions button{
+      border:none;
+      background:none;
+      cursor:pointer;
+      padding:10px;
+      border-radius:10px;
+      transition:0.3s;
+      font-size:15px;
+    }
+
+    .create-actions button:hover{
+      background:#f0f2f5;
+    }
+
+    .publish-btn{
+      background:#1877f2 !important;
+      color:white !important;
+      padding:10px 20px !important;
+    }
+
+    .publish-btn:hover{
+      background:#1668d3 !important;
+    }
+
+    /* ===== POSTS ===== */
+
+    .post{
+      background:white;
+      border-radius:20px;
+      overflow:hidden;
+      box-shadow:0 2px 8px rgba(0,0,0,0.08);
+    }
+
+    /* POST HEADER */
+
+    .post-header{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:15px;
+    }
+
+    .post-user{
+      display:flex;
+      align-items:center;
+      gap:12px;
+    }
+
+    .post-user img{
+      width:50px;
+      height:50px;
+      border-radius:50%;
+      object-fit:cover;
+    }
+
+    .post-info h3{
+      font-size:15px;
+    }
+
+    .post-info p{
+      font-size:13px;
+      color:gray;
+    }
+
+    /* POST IMAGE */
+
+    .post-image,
+    .dynamic-post-image{
+      width:100%;
+      max-height:550px;
+      object-fit:cover;
+    }
+
+    /* ACTIONS */
+
+    .post-actions{
+      display:flex;
+      justify-content:space-between;
+      padding:15px;
+      font-size:22px;
+    }
+
+    .left-actions{
+      display:flex;
+      gap:18px;
+    }
+
+    .post-actions i{
+      cursor:pointer;
+      transition:0.2s;
+    }
+
+    .post-actions i:hover{
+      transform:scale(1.1);
+    }
+
+    /* CONTENT */
+
+    .post-content{
+      padding:0 15px 20px;
+    }
+
+    .likes{
+      font-weight:bold;
+      margin-bottom:10px;
+    }
+
+    .caption{
+      margin-bottom:10px;
+      line-height:1.5;
+    }
+
+    .caption span{
+      font-weight:bold;
+    }
+
+    .comments{
+      color:gray;
+      margin-bottom:10px;
+      cursor:pointer;
+    }
+
+    .time{
+      color:gray;
+      font-size:12px;
+    }
+
+    /* COMMENT */
+
+    .comment-box{
+      width:100%;
+      padding:12px;
+      border:none;
+      border-top:1px solid #eee;
+      outline:none;
+    }
+
+    .comments-area p{
+      padding:10px 15px;
+      border-top:1px solid #f2f2f2;
+    }
+
+    /* DELETE */
+
+    .delete-btn{
+      color:red;
+      cursor:pointer;
+    }
+
+    /* RESPONSIVO */
+
+    @media(max-width:700px){
+
+      header{
+        padding:0 15px;
+      }
+
+      .logo{
+        display:none;
+      }
+
+      .search-box{
+        width:180px;
+      }
+
+      .feed{
+        width:100%;
+      }
+
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <!-- HEADER -->
+
+  <header>
+
+    <!-- LOGO -->
+
+    <div class="logo-area">
+
+      <div class="logo-icon">
+        <img src="fotos/Logo.jpeg">
+      </div>
+
+      <div class="logo">
+        Link<span>Graph</span>
+      </div>
+
+    </div>
+
+    <!-- SEARCH -->
+
+    <div class="search-box">
+
+      <i class="fa-solid fa-magnifying-glass"></i>
+
+      <input
+      type="text"
+      placeholder="Pesquisar mentores, áreas ou pessoas...">
+
+    </div>
+
+    <!-- MENU -->
+
+    <div class="menu-icons">
+
+      <div class="icon"
+      onclick="window.location.href='perfil.html'">
+
+        <i class="fa-solid fa-user"></i>
+
+      </div>
+
+      <div class="icon">
+
+        <i class="fa-solid fa-house"></i>
+
+      </div>
+
+      <div class="icon">
+
+        <i class="fa-solid fa-user-group"></i>
+
+      </div>
+
+      <div class="icon">
+
+        <i class="fa-solid fa-paper-plane"></i>
+
+      </div>
+
+      <div class="icon">
+
+        <i class="fa-solid fa-bell"></i>
+
+      </div>
+
+    </div>
+
+  </header>
+
+  <!-- CONTAINER -->
+
+  <div class="container">
+
+    <main class="feed">
+
+      <!-- CREATE POST -->
+
+      <div class="create-post">
+
+        <div class="create-top">
+
+          <img src="fotos/Usuario logado.jpg">
+
+          <input
+            type="text"
+            id="postInput"
+            placeholder="Compartilhe algo sobre sua carreira..."
+          >
+
+        </div>
+
+        <!-- FOTO -->
+
+        <input type="file" id="imageInput">
+
+        <!-- BUTTONS -->
+
+        <div class="create-actions">
+
+          <button>📷 Foto</button>
+
+          <button>🎥 Mentoria</button>
+
+          <button>💼 Trabalho</button>
+
+          <button
+            onclick="criarPost()"
+            class="publish-btn"
+          >
+            Publicar
+          </button>
+
+        </div>
+
+      </div>
+
+      <!-- FEED POSTS -->
+
+      <div id="feedPosts">
+
+        <!-- POST 1 -->
+
+        <div class="post">
+
+          <div class="post-header">
+
+            <div class="post-user">
+
+              <img src="fotos/Usuario logado.jpg">
+
+              <div class="post-info">
+                <h3>guilherme libório</h3>
+                <p>Há 2 horas</p>
+              </div>
+
+            </div>
+
+            <i class="fa-solid fa-ellipsis"></i>
+
+          </div>
+
+          <img class="post-image"
+          src="fotos/Python.jpeg">
+
+          <div class="post-actions">
+
+            <div class="left-actions">
+
+              <i
+                class="fa-regular fa-heart"
+                onclick="curtir(this)"
+              ></i>
+
+              <i class="fa-regular fa-comment"></i>
+
+              <i class="fa-regular fa-paper-plane"></i>
+
+            </div>
+
+            <i class="fa-regular fa-bookmark"></i>
+
+          </div>
+
+          <div class="post-content">
+
+            <div class="likes">
+              2.340 curtidas
+            </div>
+
+            <div class="caption">
+
+              <span>guilherme libório</span>
+
+              Iniciando novos projetos com Python e Inteligência Artificial 🚀
+
+            </div>
+
+            <div class="comments">
+              Ver todos os 180 comentários
+            </div>
+
+            <div class="time">
+              HÁ 2 HORAS
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- POST 2 -->
+
+        <div class="post">
+
+          <div class="post-header">
+
+            <div class="post-user">
+
+              <img src="fotos/Usuario logado.jpg">
+
+              <div class="post-info">
+                <h3>guilherme libório</h3>
+                <p>Há 1 dia</p>
+              </div>
+
+            </div>
+
+            <i class="fa-solid fa-ellipsis"></i>
+
+          </div>
+
+          <img class="post-image"
+          src="fotos/html.jpeg">
+
+          <div class="post-actions">
+
+            <div class="left-actions">
+
+              <i
+                class="fa-regular fa-heart"
+                onclick="curtir(this)"
+              ></i>
+
+              <i class="fa-regular fa-comment"></i>
+
+              <i class="fa-regular fa-paper-plane"></i>
+
+            </div>
+
+            <i class="fa-regular fa-bookmark"></i>
+
+          </div>
+
+          <div class="post-content">
+
+            <div class="likes">
+              980 curtidas
+            </div>
+
+            <div class="caption">
+
+              <span>guilherme libório</span>
+
+              Criando uma nova interface para a LinkGraph 💻
+
+            </div>
+
+            <div class="comments">
+              Ver todos os 65 comentários
+            </div>
+
+            <div class="time">
+              HÁ 1 DIA
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </main>
+
+  </div>
+
+  <!-- JAVASCRIPT -->
+
+  <script>
+
+    let feed;
+
+    /* LOAD */
+
+    window.onload = () => {
+
+      feed = document.getElementById("feedPosts");
+
+      let postsSalvos = localStorage.getItem("posts");
+
+      if(postsSalvos){
+
+        feed.innerHTML = postsSalvos;
+
+      }
+
+    }
+
+    /* SAVE */
+
+    function salvarPosts(){
+
+      localStorage.setItem("posts", feed.innerHTML);
+
+    }
+
+    /* CREATE POST */
+
+    function criarPost(){
+
+      let texto = document.getElementById("postInput").value;
+
+      let imagem = document.getElementById("imageInput").files[0];
+
+      if(texto.trim() === "" && !imagem){
+
+        alert("Digite algo ou escolha uma imagem!");
+
+        return;
+      }
+
+      let novoPost = document.createElement("div");
+
+      novoPost.classList.add("post");
+
+      let imagemHTML = "";
+
+      if(imagem){
+
+        let imagemURL = URL.createObjectURL(imagem);
+
+        imagemHTML = `
+          <img
+            class="dynamic-post-image"
+            src="${imagemURL}"
+          >
+        `;
+      }
+
+      novoPost.innerHTML = `
+
+        <div class="post-header">
+
+          <div class="post-user">
+
+            <img src="fotos/Usuario logado.jpg">
+
+            <div class="post-info">
+
+              <h3>Você</h3>
+
+              <p>Agora mesmo</p>
+
+            </div>
+
+          </div>
+
+          <i
+            class="fa-solid fa-trash delete-btn"
+            onclick="deletarPost(this)"
+          ></i>
+
+        </div>
+
+        <div class="post-content">
+
+          <div class="caption">
+
+            <span>você</span>
+
+            ${texto}
+
+          </div>
+
+          <div class="time">
+            AGORA
+          </div>
+
+        </div>
+
+        ${imagemHTML}
+
+        <div class="post-actions">
+
+          <div class="left-actions">
+
+            <i
+              class="fa-regular fa-heart"
+              onclick="curtir(this)"
+            ></i>
+
+            <i class="fa-regular fa-comment"></i>
+
+            <i class="fa-regular fa-paper-plane"></i>
+
+          </div>
+
+          <i class="fa-regular fa-bookmark"></i>
+
+        </div>
+
+        <input
+          class="comment-box"
+          type="text"
+          placeholder="Escreva um comentário..."
+          onkeypress="comentar(event, this)"
+        >
+
+        <div class="comments-area"></div>
+
+      `;
+
+      feed.prepend(novoPost);
+
+      salvarPosts();
+
+      /* CLEAR */
+
+      document.getElementById("postInput").value = "";
+
+      document.getElementById("imageInput").value = "";
+
+    }
+
+    /* LIKE */
+
+    function curtir(botao){
+
+      if(botao.classList.contains("fa-regular")){
+
+        botao.classList.remove("fa-regular");
+
+        botao.classList.add("fa-solid");
+
+        botao.style.color = "red";
+
+      }else{
+
+        botao.classList.remove("fa-solid");
+
+        botao.classList.add("fa-regular");
+
+        botao.style.color = "black";
+
+      }
+
+      salvarPosts();
+
+    }
+
+    /* DELETE */
+
+    function deletarPost(botao){
+
+      botao.closest(".post").remove();
+
+      salvarPosts();
+
+    }
+
+    /* COMMENT */
+
+    function comentar(event, input){
+
+      if(event.key === "Enter"){
+
+        let texto = input.value;
+
+        if(texto.trim() === ""){
+          return;
+        }
+
+        let area = input.nextElementSibling;
+
+        let comentario = document.createElement("p");
+
+        comentario.innerHTML = `
+          <strong>Você:</strong> ${texto}
+        `;
+
+        area.appendChild(comentario);
+
+        input.value = "";
+
+        salvarPosts();
+
+      }
+
+    }
+
+  </script>
+
+</body>
+</html>

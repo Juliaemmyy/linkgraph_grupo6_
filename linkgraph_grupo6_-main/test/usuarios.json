@@ -1,0 +1,11 @@
+{
+  "usuarios": [
+    {"id": 1, "nome": "Julia Barbosa", "cargo": "Estudante TI", "empresa": "Faculdade X"},
+    {"id": 2, "nome": "Prof Andreia", "cargo": "Coordenadora", "empresa": "Faculdade X"},
+    {"id": 3, "nome": "Marcos Silva", "cargo": "Recrutador Tech", "empresa": "TechCorp"}
+  ],
+  "conexoes": [
+    {"de": 1, "para": 2, "peso": 1, "tipo": "orientacao", "origem_empresa": "Faculdade X"},
+    {"de": 2, "para": 3, "peso": 3, "tipo": "profissional", "origem_empresa": "Mista"}
+  ]
+}
